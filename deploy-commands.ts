@@ -35,4 +35,5 @@ export const deploy = async (token: string) => {
     } catch (error) {
         console.error(error);
     }
+    
 }

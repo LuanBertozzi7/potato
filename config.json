@@ -2,27 +2,14 @@
     "prefix": "potat ",
     "playing": "https://youtu.be/uAPQI9Oyxk4",
     "random_status": [
-        "Arghh a bug",
-        "Oh no",
-        "I forgor 💀",
-        "Awesome",
-        "Potato",
-        "Potatoes",
-        "Its not a bug, its a feature"
+        "una batata?",
+        "Assistindo Fate!"
     ],
     "admins": [
         "709950767670493275",
         "728094862368309290"
     ],
     "words": [
-        "Potatoes are the best",
-        "Potato Moons",
-        "Mumbo isnt a cannibal",
-        "Mumbo is a cannibal?",
-        "Potato is a vegetable",
-        "Potato is a fruit?????",
-        "mubmo is a potato",
-        "som1 help me pls"
     ],
     "shop": [
         {
@@ -77,7 +64,7 @@
         }
     ],
     "welcomeMessages": [
-        "{{user}} joined the party!"
+        "{{user}} Bem vindo!"
     ],
     "jobsEmbed": [
         {

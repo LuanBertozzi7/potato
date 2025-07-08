@@ -1,7 +1,8 @@
 //initialize variables
 import Economy from 'currency-system';
-import Discord from 'discord.js'; // is not serving any purpose, possibly
+import Discord, { Guild } from 'discord.js'; // is not serving any purpose, possibly
 import {Client, GatewayIntentBits, Partials } from 'discord.js'; // recent addition 
+import { CommandInteraction } from 'discord.js';
 import { config } from "dotenv";
 import fs from 'fs';
 import mongoose from 'mongoose';
@@ -61,10 +62,11 @@ mongoose.set('debug', true);
 client.cachedTags = new Discord.Collection();
 client.cachedShopItems = new Discord.Collection();
 client.cachedInventories = new Discord.Collection();
-client.globalShopItems = [];
+client.globalShopItems = new Discord.Collection<Boolean, any>();
+// client.globalShopItems = []; old globalShopItems
 
 const updateCache = () => {
-	client.guildSettings.find({}, (err: any, docs: any) => {
+	client.guildSettings.find((err: any, docs: any) => {
 		if (err) return console.error(err);
 		docs.forEach((guildSetting: Types.GuildSettings) => {
 			if (!guildSetting.tags) return;
@@ -117,7 +119,7 @@ client.updateCache = updateCache;
 
 const languagesCache = new Discord.Collection();
 
-client.getLocale = (interaction, string, ...vars) => {
+client.getLocale = (interaction: CommandInteraction, string: string, ...vars: any) => {
 	let language = languagesCache.get(interaction.user.id) || 'en';
 	if (!localizations[language as languages]) language = 'en';
 	const stringArr = string.split('.');

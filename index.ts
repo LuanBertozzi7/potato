@@ -293,6 +293,3 @@ setInterval(async () => {
 client.login(token);
 deploy(token);
 
-
-
-// TS SCRIPT

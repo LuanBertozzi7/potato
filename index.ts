@@ -1,6 +1,7 @@
 //initialize variables
 import Economy from 'currency-system';
-import Discord from 'discord.js';
+import Discord from 'discord.js'; // is not serving any purpose, possibly
+import {Client, GatewaysIntentBits, Partials } from 'discord.js'; // recent addition 
 import { config } from "dotenv";
 import fs from 'fs';
 import mongoose from 'mongoose';
@@ -17,11 +18,30 @@ if (!(process.env.DISCORD_TOKEN && process.env.MONGO_URI && process.env.SUPER_SE
 }
 const token = process.env.DISCORD_TOKEN;
 type languages = keyof typeof localizations;
-
+/* new client creation */
+const client = new Client({
+	intents: [
+		GatewaysIntentBits.Guilds,
+    GatewaysIntentBits.GuildMembers,
+    GatewaysIntentBits.GuildMessages,
+    GatewaysIntentBits.GuildMessageReactions,
+    GatewaysIntentBits.DirectMessages,
+    GatewaysIntentBits.GuildVoiceStates,
+	],
+	partials: [
+    Partials.Message,
+    Partials.Channel,
+    Partials.GuildMember,
+    Partials.Reaction,
+    Partials.User,
+  ],
+})
+/* creation old client
 const client = new Discord.Client({
 	intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_VOICE_STATES],
 	partials: ["MESSAGE", "CHANNEL", "GUILD_MEMBER", "REACTION", "USER"],
 }) as Types.Client;
+ */
 
 mongoose.connect(process.env.MONGO_URI, {
 	autoIndex: false

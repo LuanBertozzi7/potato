@@ -1,7 +1,7 @@
 //initialize variables
 import Economy from 'currency-system';
 import Discord from 'discord.js'; // is not serving any purpose, possibly
-import {Client, GatewaysIntentBits, Partials } from 'discord.js'; // recent addition 
+import {Client, GatewayIntentBits, Partials } from 'discord.js'; // recent addition 
 import { config } from "dotenv";
 import fs from 'fs';
 import mongoose from 'mongoose';
@@ -21,12 +21,12 @@ type languages = keyof typeof localizations;
 /* new client creation */
 const client = new Client({
 	intents: [
-		GatewaysIntentBits.Guilds,
-    GatewaysIntentBits.GuildMembers,
-    GatewaysIntentBits.GuildMessages,
-    GatewaysIntentBits.GuildMessageReactions,
-    GatewaysIntentBits.DirectMessages,
-    GatewaysIntentBits.GuildVoiceStates,
+		GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.GuildVoiceStates,
 	],
 	partials: [
     Partials.Message,

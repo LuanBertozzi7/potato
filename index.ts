@@ -62,10 +62,10 @@ mongoose.set('debug', true);
 client.cachedTags = new Discord.Collection();
 client.cachedShopItems = new Discord.Collection();
 client.cachedInventories = new Discord.Collection();
-client.globalShopItems = new Discord.Collection<Boolean, any>();
+client.globalShopItems = new Discord.Collection<boolean, any>();
 // client.globalShopItems = []; old globalShopItems
 
-const updateCache = () => {
+const updateCache = () => 
 	client.guildSettings.find((err: any, docs: any) => {
 		if (err) return console.error(err);
 		docs.forEach((guildSetting: Types.GuildSettings) => {
@@ -108,6 +108,18 @@ const updateCache = () => {
 				});
 				client.cachedInventories.set(user.id, userItemsCache);
 			});
+			
+async function updateLanguageCache(user: any) {
+  try {
+    const doc = await client.languages.findOne({ user: user.id });
+    if (!doc) return;
+    languagesCache.set(user.id, doc.language);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+			/*
 		client.languages.findOne({ user: user.id }, (err: any, doc: any) => {
 			if (err) return console.error(err);
 			if (!doc) return;
@@ -115,6 +127,7 @@ const updateCache = () => {
 		});
 	});
 }
+	*/
 client.updateCache = updateCache;
 
 const languagesCache = new Discord.Collection();
@@ -134,7 +147,9 @@ client.getLocale = (interaction: CommandInteraction, string: string, ...vars: an
 		count++
 		return vars[count - 1] !== null ? vars[count - 1] : "${VAR}";
 	})
-
+	if (typeof locale !== "string"){ // garantindo que o locale seja sempre uma string
+		return "can't find locale";
+	}
 	return locale;
 }
 

@@ -1,6 +1,5 @@
 import { Collection } from "discord.js";
 import { CommandInteraction } from "discord.js";
-import { promises } from "form-data";
 import { Language } from "./Util/types";
 
 declare module 'discord.js'{
@@ -13,11 +12,9 @@ declare module 'discord.js'{
     cachedInventories: Collection<string, any>;
     globalShopItems: Collection<boolean, any>;
     guildSettings: Collection<string, any>;
-    updateCache: Collection<>; // void type?
-    tickets: Collection<>;
-    birthdays: Collection<>;
-    birthdayConfigs: Collection<>;
-    subscriptions: Collection<>;
+    updateCache: (user: user) => Promise<any>
+
+    getLocale: (Interaction: CommandInteraction, string: string, ...vars: []) => string;
     
 
   }
@@ -27,11 +24,17 @@ declare module 'discord.js'{
     getUserItems: (options?: { user: string }) => Promise<any>;
   }
 
-  interface languageDoc {
+
+  interface User {
+    id: string;
+  }
+
+
+  interface LanguageDoc {
     user: string,
     language: string;
   }
-  interface languagesManager {
+  interface LanguagesManager {
     findOne: (filter: {user: string}) => Promise<LanguageDoc | null>;
   }
 

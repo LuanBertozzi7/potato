@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { Message, MessageEmbed } from "discord.js";
+import { Message, EmbedBuilder, TextChannel, ChatInputCommandInteraction, Channel, InteractionCollector, TextBasedChannel} from "discord.js";
 import { SlashCommand } from "../../Util/types";
 
 module.exports = {
@@ -18,13 +18,21 @@ module.exports = {
                 .setDescription("The description of the embed"),
         ) as SlashCommandBuilder,
     category: "Fun",
-    async execute(interaction, client, footers) {
+    async execute(interaction: ChatInputCommandInteraction, client, footers: string[]) {
         await interaction.deferReply();
         const title = interaction.options.getString("title");
         let description = interaction.options.getString("description");
+
+        if(!interaction.channel || !interaction.channel.isTextBased()){
+            return interaction.editReply(client.getLocale(interaction, "commands.fun.say_embed.notInTextChannel") || "Este comando só pode ser usado em canais de texto.");
+        }
+
+        const channel: TextBasedChannel = interaction.channel;
+
+
         if (!description) {
-            const message = await interaction.channel?.send(client.getLocale(interaction, "commands.fun.say_embed.enterDesc"));
-            const descriptionThingy = await interaction.channel?.awaitMessages({ filter: (m: Message) => m.author.id === interaction.user.id, max: 1, time: 30000 });
+            const message = await channel.send(client.getLocale(interaction, "commands.fun.say_embed.enterDesc"));
+            const descriptionThingy = await channel.awaitMessages({ filter: (m: Message) => m.author.id === interaction.user.id, max: 1, time: 30000 });
             description = descriptionThingy?.first()?.content || "";
             message?.delete();
             descriptionThingy?.first()?.delete();
@@ -32,8 +40,8 @@ module.exports = {
 
         if (!title) return interaction.editReply(client.getLocale(interaction, "commands.fun.say_embed.specifyTitle"));
 
-        const embed = new MessageEmbed()
-            .setColor('RANDOM')
+        const embed = new EmbedBuilder()
+            .setColor('Random')
             .setTitle(title)
             .setDescription(description)
             .setFooter({ text: footers[Math.floor(Math.random() * footers.length)] });

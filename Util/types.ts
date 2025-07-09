@@ -1,6 +1,6 @@
 import { ContextMenuCommandBuilder, SlashCommandBuilder, SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder } from '@discordjs/builders';
 import Economy from 'currency-system';
-import { ButtonInteraction, Client as DiscClient, Collection, CommandInteraction, ContextMenuInteraction, Message, PermissionResolvable, SelectMenuInteraction } from 'discord.js';
+import { ButtonInteraction, Client as DiscClient, Collection, CommandInteraction, APIContextMenuInteraction, Message, PermissionResolvable, SelectMenuInteraction, ChatInputCommandInteraction } from 'discord.js';
 import { Document, Model } from 'mongoose';
 import { Music } from '../localization';
 import { shop } from './config.json';
@@ -11,7 +11,7 @@ export type SlashCommand = {
     category: string;
     guildOnly?: boolean;
     permissions?: PermissionResolvable | "BotAdmin";
-    execute: (interaction: CommandInteraction, client: Client, footers: string[], locale?: Music) => void;
+    execute: (interaction: ChatInputCommandInteraction | CommandInteraction, client: Client, footers: string[], locale?: Music) => void;
 }
 
 export type MessageComponent = {
@@ -101,6 +101,6 @@ export interface Client extends DiscClient {
     buttons: Collection<string, MessageComponent>;
     selectMenus: Collection<string, MessageComponent>;
     tictactoe: { [key: string]: { x: string, o: string, message: Message, lastInteraction: number } };
-    getLocale(interaction: CommandInteraction | ButtonInteraction | SelectMenuInteraction | ContextMenuInteraction, key: string, ...args: any[]): any;
+    getLocale(interaction: CommandInteraction | ButtonInteraction | SelectMenuInteraction | APIContextMenuInteraction, key: string, ...args: any[]): any;
     updateCache(): void;
 }

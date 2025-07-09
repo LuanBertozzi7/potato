@@ -1,0 +1,27 @@
+{
+  "name": "potato-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "tsc src/index.ts && node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuanBertozzi7/potato.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/LuanBertozzi7/potato/issues"
+  },
+  "homepage": "https://github.com/LuanBertozzi7/potato#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

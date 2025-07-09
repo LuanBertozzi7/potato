@@ -27,4 +27,3 @@ export class Command {
       Object.assign(this, options);
     }
 }
-

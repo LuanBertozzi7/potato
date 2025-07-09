@@ -1,9 +1,17 @@
-import { Client } from "discord.js"
+import { Client, Collection } from "discord.js"
 import { Partials, IntentsBitField, GatewayIntentsString } from "discord.js";
 import  dotenv from "dotenv";
+import { CommandType, ComponentsButton, ComponentsSelect, ComponentsModal } from "./types/command";
 dotenv.config();
 
 export class ExtendedClient extends Client {
+  // structures
+  public commands: Collection<string, CommandType> = new Collection();
+  public buttons: ComponentsButton = new Collection();
+  public select: ComponentsSelect = new Collection();
+  public modal: ComponentsModal = new Collection(); 
+
+  
   constructor() {
     super({
       intents: [
